@@ -1,0 +1,36 @@
+<ion-content>
+  <img class="top-img"  src="../assets/brand/bg-login.png" alt="">
+  <ion-card class="logo-login">
+    <img src="../assets/brand/logo.png" alt="">
+  </ion-card>
+  <ion-card color="danger" *ngIf="errorMessage">
+    <ion-card-content>
+      {{errorMessage}}
+    </ion-card-content>
+  </ion-card>
+  <form [formGroup]="loginForm" (submit)="login()">
+    <ion-list lines="none">
+      <ion-item class="cInput">
+        <ion-input formControlName="rut" type="text" placeholder="RUT"></ion-input>
+      </ion-item>
+      <ion-item class="cInput">
+        <ion-input formControlName="password" type="{{!options.passwordShow ? 'password' : 'text'}}" placeholder="Clave">
+        </ion-input>
+        <ion-buttons slot="end" *ngIf="loginForm.value.password != ''">
+          <ion-button icon-only *ngIf="!options.passwordShow" (click)="options.passwordShow = true">
+            <ion-icon name="eye-off"></ion-icon>
+          </ion-button>
+          <ion-button icon-only *ngIf="options.passwordShow" (click)="options.passwordShow = false">
+            <ion-icon name="eye"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-item detail="false" text-center lines="none" button routerLink="/forgot-password">
+    <ion-label color="primary">¿Olvidó su clave?</ion-label>
+  </ion-item>
+  <p text-center>
+    <ion-button (click)="login()" [disabled]="!loginForm.valid" shape="round" color="primary">Ingresar</ion-button>
+  </p>
+</ion-content>

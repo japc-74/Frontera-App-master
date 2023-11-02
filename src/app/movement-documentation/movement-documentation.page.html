@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mov <span *ngIf="movement.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span
+        *ngIf="movement.serialNo != null"> Nº {{movement.serialNo}}</span> | {{movement.type.name}} </ion-title>
+    <ion-buttons slot="end">
+        <ion-button routerLink="/movement-file/{{movement.id}}">
+          <ion-icon slot="icon-only" name="list-box"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content color="light">
+  
+  <div padding>
+      <ion-toolbar color="light">
+          <ion-text>
+            Documentación
+          </ion-text>
+      </ion-toolbar>
+
+    <ion-list lines="none">
+      <ion-item size="12">
+        <ion-label position="stacked">Patente Carga</ion-label>
+        <ion-input [disabled]="movement.status.id > 3" (click)="searchPatente()" [(ngModel)]="movement.documentation.ramp" type="text"
+          placeholder="Ingresar"></ion-input>
+  
+      </ion-item>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked">Destino Particular</ion-label>
+            <ion-input [disabled]="disableDestination" [(ngModel)]="movement.particularDestinationName"
+              type="text" placeholder="Ingresar"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+    </ion-list>
+    <ion-row>
+        <ion-col size="6">
+  
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-item lines="none" color="light">
+            <ion-label text-wrap>
+              <small><b>Buen estado</b></small>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-item lines="none" color="light">
+            <ion-label text-wrap>
+              <small><b>Mal estado</b></small>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    <ion-radio-group [(ngModel)]="item.good" *ngFor="let item of movement.documentation.checklist">
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item lines="none" color="light">
+            <ion-label>
+            <small><b>{{item.name}} </b></small>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-radio mode="md"  *ngIf="movement.status.id < 4" value="1" [checked]="item.good==1 || item.good==true"></ion-radio>
+          <ion-icon size="large" *ngIf="movement.status.id > 3 && item.good == 1" color="secondary" name="checkmark">
+          </ion-icon>
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-radio (click)="validate($event, item)" [checked]="item.good == 0" mode="md" *ngIf="movement.status.id < 4" value="0">
+          </ion-radio>
+          <ion-icon size="large" *ngIf="movement.status.id > 3 && item.good != 1" color="danger" name="close">
+          </ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+    <ion-row *ngIf="movement.status.id < 4">
+      <ion-col text-center>
+        <ion-button (click)="save(true)"  shape="round" color="primary">Guardar</ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button (click)="send()" shape="round" color="secondary">Enviar</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]"
+      (change)="processWebImage($event, 'in')" />
+           <div *ngIf="tabDoc.images">
+            <ion-text *ngIf="tabDoc.images.length > 0">
+              Imágenes
+            </ion-text>
+            <ion-card style="background:white" *ngFor="let img of tabDoc.images">
+              <img src="{{getSrc(img)}}" alt="">
+              <ion-buttons style="position: absolute; top:5px; right: 5px"
+                (click)="tabDoc.images.splice(index, 1)">
+                <ion-button>
+                  <ion-icon color="light" name="close" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-card>
+          </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-item detail="false" button text-center lines="none" routerLink="/tabs/tab3" routerDirection="backward">
+    <ion-label>
+      Volver
+    </ion-label>
+  </ion-item>
+</ion-footer>

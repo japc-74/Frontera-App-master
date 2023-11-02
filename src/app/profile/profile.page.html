@@ -1,0 +1,100 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="openMenu()">
+      <ion-button>
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/notifications">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/search">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <div button (click)="changeImage($event, 'app')" class="image-container" style="width:100%;height: 100px;background-size: cover;background-position: center center;" [ngStyle]="{'background-image': appImageSrc}">
+    <div button (click)="changeImage($event, 'profile')" [ngStyle]="{'background-image': profileImageSrc}" style="
+      width: 100px;
+      height:100px;      
+      left: calc(50% - 50px);
+      border-radius: 50%;
+      top: 50px;
+      position: absolute;
+      z-index: 999;
+      border: 3px solid white;
+      box-shadow: 2px 2px 3px #00000085;
+      background-size: cover;
+  "></div>
+  </div>
+  <div class="gradient2">
+    <ion-toolbar class="no-color">
+      <ion-buttons slot="end">
+        <ion-button button (click)="logout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <ion-item-divider text-center class="no-color" text-wrap>
+      <h1>{{user.name + " " +  user.lastName}}</h1>
+      <p>{{user.bio}}</p>
+    </ion-item-divider>
+  </div>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="6" style="border-right:2px solid white">
+        <ion-item button color="primary" text-right detail="false" lines="none" text-wrap routerLink="/tabs/tab2">
+          <ion-label>
+            <b style="font-size:2em">{{expeditionCount}}</b> <br> <small>Expediciones</small>
+          </ion-label>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-toolbar>
+
+  <form [formGroup]="profileForm">
+    <ion-item class="cInput">
+      <ion-input placeholder="Nombre(s)" type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item class="cInput">
+      <ion-input placeholder="Apellidos"  type="text" formControlName="lastName"></ion-input>
+    </ion-item>
+    <ion-item class="cInput">
+      <ion-textarea placeholder="Biografía"  type="text" formControlName="bio"></ion-textarea>
+    </ion-item>
+  </form>
+  <ion-item lines="none" class="no-color" detail="false" button (click)="changePassword = !changePassword">
+    <ion-label text-center>
+      {{changePassword ? "Cancelar" : "Cambiar clave"}}
+    </ion-label>
+  </ion-item>
+  <form [formGroup]="passwordForm" *ngIf="changePassword">
+    <ion-item class="cInput">
+      <ion-input type="password" placeholder="Clave anterior"  formControlName="oldPassword"></ion-input>
+    </ion-item>
+    <ion-item class="cInput">
+      <ion-input type="password" placeholder="Nueva Clave"  formControlName="password"></ion-input>
+    </ion-item>
+    <ion-item class="cInput">
+      <ion-input type="password" placeholder="Confirmar clave" formControlName="passwordConfirm"></ion-input>
+    </ion-item>
+  </form>
+  <p text-center>
+    <ion-button (click)="send()" color="secondary" shape="round" [disabled]="!profileForm.valid || (changePassword && !passwordForm.valid)">Actualizar</ion-button>
+  </p>
+  <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files"
+      (change)="processWebImage($event)" />
+</ion-content>

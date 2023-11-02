@@ -1,0 +1,10 @@
+<ion-item detail="false" lines="none" text-wrap button class="block-one {{color ? 'color-' + color : ''}}" (click)="itemClick()">
+  <ion-label [class.blockWrapper]="isCentered" >
+      <ng-content></ng-content>
+  </ion-label>
+  <div slot="end">
+    <ng-content select="[slot]"></ng-content>
+  </div>
+</ion-item>
+<div [class.arrow]="useArrow" class="pad"></div>
+   

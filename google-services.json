@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "323574992626",
+    "firebase_url": "https://frontier-4ba05.firebaseio.com",
+    "project_id": "frontier-4ba05",
+    "storage_bucket": "frontier-4ba05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323574992626:android:d87dbc14259154d9d04a6b",
+        "android_client_info": {
+          "package_name": "com.frontier.frontera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323574992626-6npdqgr82h05tc0u7pgf59o7cs6j27ba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ9ItChH78jMc3SbfvLT7-6at9gjleY5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323574992626-6npdqgr82h05tc0u7pgf59o7cs6j27ba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,278 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Exp <span *ngIf="expedition.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span
+        *ngIf="expedition.serialNo != null"> Nº {{expedition.serialNo}}</span> </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/expedition-documentation/{{expedition.id}}">
+        <ion-icon slot="icon-only" name="folder"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title>
+      <ion-icon name="bus"></ion-icon> Patente: <span
+        *ngIf="expedition.patenteVehiculo == null"><sup>S</sup>/<sub>N</sub></span> <span
+        *ngIf="expedition.patenteVehiculo != null"> Nº {{expedition.patenteVehiculo}}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="light">
+  <ion-toolbar color="primary" *ngIf="expedition.ret == 1">
+    <ion-segment mode="md" [(ngModel)]="tab">
+      <ion-segment-button mode="md" value="out" selected>
+        Ida
+      </ion-segment-button>
+      <ion-segment-button mode="md" value="in">
+        Retorno
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-row no-padding>
+      <ion-col size="6" style="border-right:2px solid grey" no-padding>
+        <ion-item lines="none" color="light" text-right class="no-lines">
+          <ion-icon slot="start" name="contact"></ion-icon>
+          <ion-label text-wrap>
+            <p>{{tabDoc.clientName}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" no-padding>
+        <ion-item lines="none" color="light" text-left class="no-lines">
+          <ion-label>
+            <p>{{tabDoc.status.name}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-card style="background-color: white">
+    <ion-card-content>
+      <ion-list>
+        <ion-item text-wrap>
+          <ion-icon slot="start" src="/assets/material-icons/restore.svg"></ion-icon>
+          <ion-label>
+            <p><b>Fecha presentación destino</b></p>
+            <p>{{FinalDate == null ? "-" : FinalDate}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <div slot="start">
+            <ion-icon name="arrow-round-down"></ion-icon>
+            <ion-icon src="/assets/material-icons/restore.svg"></ion-icon>
+          </div>
+
+          <ion-label>
+            <p><b>Fecha y hora lugar de carga</b></p>
+            <p>{{ChargeDate == null ? "-" : ChargeDate}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <div slot="start">
+            <ion-icon name="arrow-round-down"></ion-icon>
+            <ion-icon name="pin"></ion-icon>
+          </div>
+          <ion-label>
+            <p><b>Lugar de carga</b></p>
+            <p>{{tabDoc.chargePlaceName}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-icon slot="start" name="pin"></ion-icon>
+          <ion-label>
+            <p><b>Destino particular</b></p>
+            <p>{{tabDoc.particularDestinyName}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <!--
+      <ion-row text-center button>
+        <ion-col size="6">
+          <ion-item detail="false" text-wrap lines="none" button (click)="charged()" *ngIf="tabDoc.ida">
+            <ion-label *ngIf="tabDoc.status.id > 2" text-wrap> <small>Cargado</small> </ion-label>
+            <ion-toggle *ngIf="tabDoc.status.id == 3" mode="md" [(ngModel)]="isCharged" color="secondary">
+            </ion-toggle>
+            <ion-icon slot="end" name="checkmark" color="secondary" *ngIf="tabDoc.status.id > 3"></ion-icon>
+          </ion-item>
+
+          <ion-item detail="false" text-wrap lines="none" button (click)="charged()" *ngIf="!tabDoc.ida">
+            <ion-label *ngIf="tabDoc.status.id > 12" text-wrap> <small>Cargado</small> </ion-label>
+            <ion-toggle *ngIf="tabDoc.status.id == 13" mode="md" [(ngModel)]="isCharged" color="secondary">
+            </ion-toggle>
+            <ion-icon slot="end" name="checkmark" color="secondary" *ngIf="tabDoc.status.id > 13"></ion-icon>
+          </ion-item>
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-item text-wrap lines="none" (click)="delivered()" *ngIf="tabDoc.ida">
+              <ion-label *ngIf="tabDoc.status.id > 5" text-wrap> <small>Entregado</small> </ion-label>
+            <ion-toggle *ngIf="tabDoc.status.id == 6" mode="md" [(ngModel)]="isDelivered" color="secondary">
+            </ion-toggle>
+            <ion-icon slot="end" name="checkmark" color="secondary" *ngIf="tabDoc.status.id > 6"></ion-icon>
+          </ion-item>
+          <ion-item text-wrap lines="none" (click)="delivered()" *ngIf="!tabDoc.ida">
+            <ion-label *ngIf="tabDoc.status.id > 15" text-wrap> <small>Entregado</small> </ion-label>
+            <ion-toggle *ngIf="tabDoc.status.id == 16" mode="md" [(ngModel)]="isDelivered" color="secondary">
+            </ion-toggle>
+            <ion-icon slot="end" name="checkmark" color="secondary" *ngIf="tabDoc.status.id > 16"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      -->
+    </ion-card-content>
+  </ion-card>
+
+
+  <p text-center>
+
+  <span *ngIf="tabDoc.status.id == 2 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+
+    <ion-button (click)="showConfirm(3)" shape="round" ion-ion-button  color="primary">
+      Cargando
+    </ion-button>
+
+  </span>
+
+  <span *ngIf="tabDoc.status.id == 3 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+
+    <ion-button [disabled]="!validSave()" (click)="showConfirm(4)" shape="round" ion-ion-button  color="primary">
+      En transito
+    </ion-button>
+
+  </span>
+
+  <span *ngIf="tabDoc.status.id == 4 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+
+    <ion-button (click)="showConfirm(6)" shape="round" ion-ion-button  color="primary">
+      En destino
+    </ion-button>
+
+  </span>
+
+  <span *ngIf="tabDoc.status.id == 6 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+
+    <ion-button (click)="showConfirm(7)" shape="round" ion-ion-button  color="primary">
+      Descargando
+    </ion-button>
+
+  </span>
+
+  <span *ngIf="tabDoc.status.id == 7 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+
+    <ion-button (click)="showConfirm(8)" shape="round" ion-ion-button  color="primary">
+      Entregado
+    </ion-button>
+
+  </span>
+
+  <span *ngIf="tabDoc.status.id == 8 && tabDoc.status.id != 5">
+
+    <ion-button [disabled]="!validSave()" (click)="showConfirm(9)" shape="round" ion-ion-button  color="primary">
+      Finalizar
+    </ion-button>
+
+  </span>
+
+
+
+<!--
+    <ion-button [disabled]="!validSave()" shape="round" ion-ion-button color="primary" (click)="save()"
+      *ngIf="tabDoc.status.id >= 2 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+      <span *ngIf="tabDoc.status.id == 2">Cargando</span>
+      <span *ngIf="tabDoc.status.id == 3">En transito</span>
+      <span *ngIf="tabDoc.status.id == 4">En Destino</span>
+      <span *ngIf="tabDoc.status.id == 6">Descargando</span>
+      <span *ngIf="tabDoc.status.id == 7">Entregado</span>
+      <span *ngIf="tabDoc.status.id == 8">Finalizar</span>
+    </ion-button>
+-->
+    <ion-button shape="round" ion-ion-button color="secondary" routerLink="/expedition-documentation/{{expedition.id}}"
+      *ngIf="tabDoc.status.id == 2|| tabDoc.status.id == 3">
+      <span *ngIf="tabDoc.status.id == 2 || tabDoc.status.id == 3">Documentación IDA</span>
+    </ion-button>
+  </p>
+
+
+  <p text-center>
+
+  <span *ngIf="tabDoc.status.id == 12 && tabDoc.status.id <= 18 && tabDoc.status.id != 15">
+
+    <ion-button (click)="showConfirm(13)" shape="round" ion-ion-button  color="primary">
+      Cargando
+    </ion-button>
+
+  </span>
+
+    <span *ngIf="tabDoc.status.id == 13 && tabDoc.status.id <= 18 && tabDoc.status.id != 15">
+
+    <ion-button [disabled]="!validSave()" (click)="showConfirm(14)" shape="round" ion-ion-button  color="primary">
+      En transito
+    </ion-button>
+
+  </span>
+
+    <span *ngIf="tabDoc.status.id == 14 && tabDoc.status.id <= 18 && tabDoc.status.id != 15">
+
+    <ion-button (click)="showConfirm(16)" shape="round" ion-ion-button  color="primary">
+      En destino
+    </ion-button>
+
+  </span>
+
+    <span *ngIf="tabDoc.status.id == 16 && tabDoc.status.id <= 18 && tabDoc.status.id != 15">
+
+    <ion-button (click)="showConfirm(17)" shape="round" ion-ion-button  color="primary">
+      Descargando
+    </ion-button>
+
+  </span>
+
+    <span *ngIf="tabDoc.status.id == 17 && tabDoc.status.id <= 18 && tabDoc.status.id != 15">
+
+    <ion-button (click)="showConfirm(18)" shape="round" ion-ion-button  color="primary">
+      Entregado
+    </ion-button>
+
+  </span>
+
+    <span *ngIf="tabDoc.status.id == 18 && tabDoc.status.id != 15">
+
+    <ion-button [disabled]="!validSave()" (click)="showConfirm(19)" shape="round" ion-ion-button  color="primary">
+      Finalizar
+    </ion-button>
+
+  </span>
+
+
+    <!--
+        <ion-button [disabled]="!validSave()" shape="round" ion-ion-button color="primary" (click)="save()"
+          *ngIf="tabDoc.status.id >= 2 && tabDoc.status.id <= 8 && tabDoc.status.id != 5">
+          <span *ngIf="tabDoc.status.id == 2">Cargando</span>
+          <span *ngIf="tabDoc.status.id == 3">En transito</span>
+          <span *ngIf="tabDoc.status.id == 4">En Destino</span>
+          <span *ngIf="tabDoc.status.id == 6">Descargando</span>
+          <span *ngIf="tabDoc.status.id == 7">Entregado</span>
+          <span *ngIf="tabDoc.status.id == 8">Finalizar</span>
+        </ion-button>
+    -->
+
+
+    <ion-button shape="round" ion-ion-button color="secondary" routerLink="/expedition-documentation/{{expedition.id}}"
+                *ngIf="tabDoc.status.id == 12 || tabDoc.status.id == 13">
+      <span *ngIf="tabDoc.status.id == 12 || tabDoc.status.id == 13">Documentación RETORNO</span>
+    </ion-button>
+
+  </p>
+
+
+</ion-content>
+<ion-footer>
+  <ion-item detail="false" button text-center lines="none" routerLink="/tabs/tab2" routerDirection="backward">
+    <ion-label>
+      Volver
+    </ion-label>
+  </ion-item>
+</ion-footer>

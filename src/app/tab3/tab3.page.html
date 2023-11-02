@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="openMenu()">
+      <ion-button>
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/notifications">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/search">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="light">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-buttons slot="start" *ngIf="statusFilter.length > 0">
+      <ion-button (click)="statusFilter = []">
+        <ion-icon name="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label>Estado</ion-label>
+    <ion-select multiple="true" (ionChange)="updateMovements()" [(ngModel)]="statusFilter" okText="Seleccionar"
+      cancelText="Cancelar" placeholder="Seleccionar">
+      <ion-select-option value="{{status.id}}" *ngFor="let status of movementsCtrl.allStatus">{{status.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-row style="background: white" no-padding>
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-label position="floating">Desde:</ion-label>
+        <ion-datetime [(ngModel)]="fromDate" (ionChange)="from($event)" displayFormat="MM/DD/YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-label position="floating">Hasta:</ion-label>
+        <ion-datetime [(ngModel)]="toDate" (ionChange)="to($event)" displayFormat="MM/DD/YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <app-status-item link="/movement-file/{{item.id}}" [arrow]="false" *ngFor="let item of filteredMovements"
+        [color]="item.status.color">
+        <p>
+          {{ item.type ? "Movimiento" : "Expedición"}} <span
+            *ngIf="item.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span *ngIf="item.serialNo != null"> Nº
+            {{item.serialNo}}</span> <br />
+          {{item.chargePlaceName}} | {{item.particularDestinyName}} <br />
+          {{ item.type ? momentDate(item.inicio) : momentDate(item.chargeDate)  }} <br />
+          {{item.status.name}} <br />
+        </p>
+        <ion-buttons slot="end">
+          <ion-button (click)="popMovement($event, item)">
+            <ion-icon name="icon-only" color="danger" name="menu"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </app-status-item>
+      <ion-item *ngIf="filteredMovements.length == 0">
+        <ion-label text-wrap>
+          No hay expediciones <span *ngIf="statusFilter.length > 0 || fromDate != null || toDate != null"> con los
+            filtros seleccionados</span>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

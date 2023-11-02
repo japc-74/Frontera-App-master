@@ -1,0 +1,43 @@
+<ion-content>
+    <ion-toolbar text-center color="medium">
+      <ion-title>
+          <small>Carga de Combustible</small>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-list>
+      <ion-item *ngIf="!secondTime">
+        <ion-label stacked>Numeral inicial</ion-label>
+        <ion-input [disabled]="!(this.expedition.status.id == 2 || this.expedition.status.id == 8)" [(ngModel)]="CurrentDoc.combustible.noInitial" type="number"  value={{CurrentDoc.combustible.noInitial}}>
+  
+        </ion-input>
+      </ion-item>
+      <ion-item *ngIf="!secondTime">
+        <ion-label stacked>Numeral final</ion-label>
+        <ion-input [disabled]="!(this.expedition.status.id == 2 || this.expedition.status.id == 8)" [(ngModel)]="CurrentDoc.combustible.noFinal" type="number" (click)="getLiters()" value={{CurrentDoc.combustible.noFinal}}>
+  
+        </ion-input>
+      </ion-item>
+        <ion-item >
+            <ion-label stacked>Litros cargados</ion-label>
+            <ion-input [disabled]="!(this.expedition.status.id == 2 || this.expedition.status.id == 8)" [(ngModel)]="CurrentDoc.combustible.liters" type="number" *ngIf="!secondTime"  value={{CurrentDoc.combustible.liters}}>
+
+            </ion-input>
+            <ion-input [disabled]="!((this.expedition.status.id < 5) || (this.expedition.status.id >= 8 && this.expedition.status.id < 10))" [(ngModel)]="CurrentDoc.combustible.litersSecondTime" type="number" *ngIf="secondTime" value={{CurrentDoc.combustible.litersSecondTime}}>
+            </ion-input>
+        </ion-item>
+      <ion-item >
+          <ion-label stacked>AdBlue</ion-label>
+          <ion-input [disabled]="!(this.expedition.status.id == 2 || this.expedition.status.id == 8)" [(ngModel)]="CurrentDoc.combustible.noAdblue" type="number" value={{CurrentDoc.combustible.noAdblue}}>
+
+          </ion-input>
+
+  
+
+      </ion-item>
+    </ion-list>
+    <p text-center><ion-button (click)="close()" color="primary" shape="round">OK</ion-button></p>
+  </ion-content>
+    

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-searchbar #search (ionChange)="loadFilter()" [(ngModel)]="filter" placeholder="Buscar"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+    <ion-row>
+        <ion-col col-12>
+          <app-status-item link="/{{ item.type ? 'movement-file' : 'expedition-file'}}/{{item.id}}" [arrow]="true" color="primary" *ngFor="let item of results" color="{{item.status.color}}">
+            <ion-label>
+                <ion-badge *ngIf="!item.type">{{item.return ? "Regreso" : "Ida"}}</ion-badge> 
+                {{ item.type ? "Movimiento" : "Expedición"}} <span *ngIf="item.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span *ngIf="item.serialNo != null"> Nº {{item.serialNo}}</span> <br />
+                {{item.chargePlaceName}} | {{item.particularDestinyName}} <br />
+                {{momentDate(item.FinalDate)}} <br />
+                {{item.status.name}} <br />
+            </ion-label>
+          </app-status-item>
+        </ion-col>
+      </ion-row>
+</ion-content>

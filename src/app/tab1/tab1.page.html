@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="openMenu()">
+      <ion-button>
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/notifications">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/search">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+        
+    </ion-refresher-content>
+  </ion-refresher>
+  <img class="top-img" src="../assets/brand/home-top.png" alt="">
+        <ion-row>
+          <ion-col col-12>
+            <app-status-item link="/{{ item.type ? 'movement-file' : 'expedicion-master'}}/{{item.id}}" [arrow]="true" *ngFor="let item of expAndMov" color="{{item.status.color}}">
+              <p>
+                <ion-badge *ngIf="!item.type">{{item.status != null && item.status.id > 9 ? "Regreso" : "Ida"}}</ion-badge>
+                {{ item.type ? "Movimiento" : "Expedición"}} <span *ngIf="item.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span *ngIf="item.serialNo != null"> Nº {{item.serialNo}}</span> <br />
+                {{item.chargePlaceName}} | {{item.particularDestinyName}} <br />
+                {{ item.type ? momentDate(item.start) : momentDate(item.chargeDate) }} <br />
+                Estado: {{item.status.name}}  <br />
+              </p>
+            </app-status-item>
+          </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+          <ion-col size="4" *ngFor="let block of blocks" no-padding>
+            <ion-card button [routerLink]="block.link" style="background-color: white; margin:5px">
+              <ion-card-content>
+                <p text-center>
+                  <ion-icon size="large" name="{{block.icon}}"></ion-icon>
+                </p>
+                <p text-center>{{block.amount()}}</p>
+                <p text-center style="font-size:.8rem"><small><b>{{block.name}}</b></small></p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-card style="background-color: white; margin:5px">
+          <ion-card-content>
+            <ion-slides pager="true">
+              <ion-slide style="padding-bottom: 32px" *ngFor="let m of mensajes">
+                <p>
+                <ion-text color="primary">{{ m.message }}</ion-text>
+                </p>
+      
+              </ion-slide>
+            </ion-slides>
+          </ion-card-content>
+        </ion-card>
+</ion-content>

@@ -1,0 +1,194 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Exp <span *ngIf="expedition.serialNo == null"><sup>S</sup>/<sub>N</sub></span> <span
+        *ngIf="expedition.serialNo != null"> Nº {{expedition.serialNo}}</span> </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/expedition-file/{{expedition.id}}">
+        <ion-icon slot="icon-only" name="list-box"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary" mode="ios">
+    <ion-title>
+      <ion-icon name="bus"></ion-icon> Patente: <span
+        *ngIf="expedition.patenteVehiculo == null"><sup>S</sup>/<sub>N</sub></span> <span
+        *ngIf="expedition.patenteVehiculo != null"> Nº {{expedition.patenteVehiculo}}</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-toolbar color="primary" *ngIf="expedition.returning == 1 || tabDoc.returning == 1">
+    <ion-segment mode="md" [(ngModel)]="tab" >
+      <ion-segment-button mode="md" value="out" selected (ionSelect)="segmentButtonClicked('out')">
+        Ida
+      </ion-segment-button>
+      <ion-segment-button mode="md" value="in" (ionSelect)="segmentButtonClicked('in')">
+        Regreso
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div padding>
+    <ion-toolbar color="light">
+      <ion-text>
+        Documentación {{ cam == "in" ? "Retorno" : "Ida" }}
+      </ion-text>
+      <ion-buttons slot="end">
+        <!-- ojo <ion-button [disabled]="tabDoc.status.id >= 8  &&  tabDoc.status.id < 12 || tabDoc.status.id >= 18 && !isvalidDoc(tabDoc)" (click)="takePicture('in')" ion-button icon-only> -->
+        <!-- <ion-button [disabled]="tabDoc.status.id >= 8  &&  tabDoc.status.id < 12 || tabDoc.status.id >= 18 && !isvalidDoc(tabDoc)" (click)="addImage('in')" ion-button icon-only> -->
+        
+        <ion-button [disabled]="tabDoc.status.id >= 8  &&  tabDoc.status.id < 12 || tabDoc.status.id >= 18 && !isvalidDoc(tabDoc)" (click)="takePhoto(tabDoc.tab)" ion-button icon-only>
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+        <!--<ion-button [disabled]="tabDoc.status.id >= 8  &&  tabDoc.status.id < 12 || tabDoc.status.id >= 18 && !isvalidDoc(tabDoc) && tabDoc.status.id == 0" (click)="addFuel()">
+          <ion-icon slot="icon-only" src="/assets/material-icons/local_gas_station.svg"></ion-icon>
+        </ion-button>
+        <ion-button [disabled]="tabDoc.status.id >= 8  &&  tabDoc.status.id < 12 || tabDoc.status.id >= 18 && !isvalidDoc(tabDoc) && tabDoc.status.id == 0" (click)="openPopOver()" icon-only>
+          <ion-icon slot="icon-only" src="/assets/material-icons/local_gas_station.svg"></ion-icon>
+        </ion-button>-->
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label position="stacked">Patente Rampla*</ion-label>
+        <ion-input [disabled]="tabDoc.status.id > 4 && tabDoc.status.id < 10 || tabDoc.status.id > 14" (click)="searchPatente(tabDoc)"
+          [(ngModel)]="tabDoc.ramp" type="text" placeholder="Ingresar"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col col-8>
+          <ion-item>
+            <ion-label position="stacked">N° Orden de transporte*</ion-label>
+            <ion-input [disabled]="tabDoc.status.id > 4 && tabDoc.status.id < 10 || tabDoc.status.id > 14" [(ngModel)]="tabDoc.orderNo"
+              type="text" placeholder="Ingresar"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-label position="stacked">Kms Inicial*</ion-label>
+            <ion-input [disabled]="tabDoc.status.id > 4 && tabDoc.status.id < 10 || tabDoc.status.id > 14" type="number" min="0"
+              [(ngModel)]="tabDoc.initialKm" placeholder="Ingresar"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+    <ion-row>
+      <ion-col size="6">
+
+      </ion-col>
+      <ion-col size="3" text-center>
+        <ion-item lines="none" color="light">
+          <ion-label text-wrap>
+            <small><b>Buen estado</b></small>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3">
+        <ion-item lines="none" color="light">
+          <ion-label text-wrap>
+            <small><b>Mal estado</b></small>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-radio-group [(ngModel)]="item.good" *ngFor="let item of tabDoc.checklist">
+      <ion-row>
+        <ion-col size="6">
+          <ion-item lines="none" color="light">
+            <ion-label>
+              <small><b>{{item.name}}</b></small>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-radio mode="md"  *ngIf="tabDoc.status.id < 5 && tabDoc.status.id < 10 || tabDoc.status.id < 15" value="1" [checked]="item.good==1"></ion-radio>
+          <ion-icon size="large" *ngIf="tabDoc.status.id > 4 && tabDoc.status.id < 10 || tabDoc.status.id > 14 && item.good == 1" color="secondary" name="checkmark">
+          </ion-icon>
+        </ion-col>
+        <ion-col size="3" text-center>
+          <ion-radio (click)="validate($event, item)" [checked]="item.good==0" mode="md" *ngIf="tabDoc.status.id < 4 && tabDoc.status.id < 10 || tabDoc.status.id < 15" value="0">
+          </ion-radio>
+          <ion-icon size="large" *ngIf="tabDoc.status.id > 4 && tabDoc.status.id < 10 || tabDoc.status.id > 14 && item.good != 1" color="danger" name="close">
+          </ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+    <ion-row *ngIf="tabDoc.status.id <= 9">
+      <ion-col text-center>
+        <ion-button (click)="save(true)" shape="round" color="primary">Guardar</ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button [disabled]="!isvalidDoc(tabDoc)" (click)="updateDocs()" shape="round"
+          color="secondary">{{ tabDoc.status.id <= 9 ? "Enviar" : "Actualizar"}}</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="tabDoc.status.id > 10 && tabDoc.status.id < 19">
+      <ion-col text-center>
+        <ion-button (click)="save2(true)" shape="round" color="primary">Guardar</ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button [disabled]="!isvalidDoc(tabDoc)" (click)="updateDocs2()" shape="round"
+                    color="secondary">{{ tabDoc.status.id > 10 && tabDoc.status.id < 19 ? "Enviar" : "Actualizar"}}</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <input type="file" accept="image/*" #fileInput style="visibility: hidden; height: 0px" name="files[]"
+      (change)="processWebImage($event, 'in')" />
+           <div *ngIf="tabDoc.images">
+            <ion-text *ngIf="tabDoc.images.length > 0">
+              Imágenes
+            </ion-text>
+            <ion-card style="background:white" *ngFor="let img of tabDoc.images">
+              <img src="{{getSrc(img)}}" alt="">
+              <ion-buttons style="position: absolute; top:5px; right: 5px"
+                (click)="tabDoc.images.splice(index, 1)">
+                <ion-button>
+                  <ion-icon color="light" name="close" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-card>
+          </div>
+
+    <!-- image test -->
+    <!--
+    <ion-list>
+      <ion-item *ngFor="let item of photos">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="item.src"></ion-img>
+        </ion-thumbnail>
+        <ion-label>{{item.src}}</ion-label>
+      </ion-item>
+    </ion-list>
+    -->
+    <!-- image test end -->
+
+    <!--
+    <div *ngIf="photos"> // tabDoc.images
+      <ion-text *ngIf="photos.length > 0"> // tabDoc.images.length > 0
+        Imágenes
+      </ion-text>
+      <img [src]="photo" >
+      <ion-card style="background:white" *ngFor="let photo of photos"> // tabDoc.images
+        <img src="{{getSrc(photo)}}" alt="">
+        <ion-buttons style="position: absolute; top:5px; right: 5px"
+          (click)="tabDoc.images.splice(index, 1)">
+          <ion-button>
+            <ion-icon color="light" name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </div>
+    -->
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-item detail="false" button text-center lines="none" routerLink="/tabs/tab2" routerDirection="backward">
+    <ion-label>
+      Volver
+    </ion-label>
+  </ion-item>
+</ion-footer>

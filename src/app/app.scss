@@ -1,0 +1,67 @@
+// App Styles
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply to the entire application. These 
+// styles are for the entire app and not just one component. Additionally, this 
+// file can hold Sass mixins, functions, and placeholder classes to be imported 
+// and used throughout the application.
+
+.top-img 
+{
+    width: 100%;
+}
+
+.bg-menu 
+{
+    background-size: cover;
+    background-position: center center;
+} 
+
+ion-item.no-bg 
+{
+    --background: rgba(0,0,0,0);
+}
+
+.thumbnail 
+{
+    max-width: none;
+    height: 64px;
+}
+
+p.shadowed-text 
+{
+    color: white !important;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+
+ion-avatar 
+{
+    &.big 
+    {
+        width:64px;
+        height: 64px;
+        img 
+        {
+            width:64px;
+            height: 64px;
+        }
+    }
+
+    &.border-white 
+    {
+        img {
+            border:2px solid white
+        }
+        
+    }
+}
+
+.bigger-popover
+{
+    .popover-content
+    {
+        width:80vw;
+        max-width:500px;
+    }
+}

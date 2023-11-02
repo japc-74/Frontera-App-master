@@ -1,0 +1,7 @@
+{
+  "appId": "com.frontier.frontera",
+  "appName": "Frontera",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
