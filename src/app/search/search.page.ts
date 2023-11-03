@@ -22,16 +22,18 @@ export class SearchPage implements OnInit {
     {
       this.expAndMov.push(exp);
     }
-
+/*
     for(const mov of this.movements.todas)
     {
       this.expAndMov.push(mov);
-    }  
+    }
+    */
   }
-
+/*
   get movements() {
     return this.frontera.movementsCtrl.movements.movimientos;
   }
+  */
 
   get expeditions() {
     return this.frontera.expeditionCtrl.expeditions.expediciones;

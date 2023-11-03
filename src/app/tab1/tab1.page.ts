@@ -62,11 +62,11 @@ export class Tab1Page implements OnInit {
   private menu:MenuController, private frontera:FronteraService,
   private loadingCtrl:LoadingController, private authService: AuthenticationService,
   private storage: Storage, public toastController: ToastController) {}
-
+/*
   get movements() {
     return this.frontera.movementsCtrl.movements.movimientos;
   }
-
+*/
   get expeditions(){
     return this.frontera.expeditionCtrl.expeditions.expediciones;
   }
@@ -106,10 +106,10 @@ export class Tab1Page implements OnInit {
       this.expAndMov.push(Object.assign({}, exp));
     }
 
-    for(const mov of this.movements.todas)
-    {
-      this.expAndMov.push(Object.assign({}, mov));      
-    }
+    //for(const mov of this.movements.todas)
+    //{
+      // disabling feature // this.expAndMov.push(Object.assign({}, mov));
+    //}
 
     for(const mes of this.messages)
     {

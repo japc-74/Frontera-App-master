@@ -44,7 +44,7 @@ export class ProfilePage implements OnInit {
     this.newAppImg = null;
     this.newImg = null;
   }
-
+/*
   get movementCount() 
   {
     try {
@@ -53,6 +53,7 @@ export class ProfilePage implements OnInit {
       return 0;
     }
   }
+  */
 
   get expeditionCount() 
   {

@@ -1,10 +1,11 @@
 {
-  "appId": "com.frontier.frontera",
-  "appName": "Frontera",
+  "appId": "app.appfrontera.cl",
+  "appName": "AppFrontera",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
   "server": {
-    "url": "http://127.0.0.1:8100"
+    "url": "http://127.0.0.1:8100",
+    "originalUrl": "http://127.0.0.1:8100"
   }
 }

@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit } from '@angular/core';
 import { MovementsService } from '../services/movements/movements.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +15,7 @@ import * as moment from "moment";
 export class MovementFilePage implements OnInit {
   movement:any;
   constructor(private movementsCtrl: MovementsService, private route: ActivatedRoute, private router:Router, private loadingCtrl:LoadingController) { 
-    this.movement = this.movementsCtrl.getById(this.route.snapshot.paramMap.get('id'));
+    // disabling feature // this.movement = this.movementsCtrl.getById(this.route.snapshot.paramMap.get('id'));
     //console.log("MOVEMENt FILE OF:", this.movement);
     //this.isCharged = this.expedition.status.id > 3;
     //this.isDelivered = this.expedition.status.id > 7;     
@@ -30,19 +31,19 @@ export class MovementFilePage implements OnInit {
 
 
   gotoExpedition() {
-    this.router.navigate(['/expedicion-master/id']);
+    // disabling feature // this.router.navigate(['/expedicion-master/id']);
   }
 
   gotoMovement() {
-    this.router.navigate(['/movement-file/'+this.route.snapshot.paramMap.get('id')]);
+    // disabling feature // this.router.navigate(['/movement-file/'+this.route.snapshot.paramMap.get('id')]);
   }
 
   gotoMovementDoc() {
-    this.router.navigate(['/movement-documentation/'+this.route.snapshot.paramMap.get('id')]);
+    // disabling feature // this.router.navigate(['/movement-documentation/'+this.route.snapshot.paramMap.get('id')]);
   }
 
   async showConfirm(estado) {
-    this.saveStatus(estado);
+    // disabling feature // this.saveStatus(estado);
   }
 
   notifyUser(message, data)
@@ -53,19 +54,19 @@ export class MovementFilePage implements OnInit {
     }).then();
   }
 
-  /*
-  saveStatus(estado)
-  {
-    this.movementsCtrl.saveEstado(this.movement, estado).subscribe(data => {
-      //console.log(data);
-      this.send();
-      this.gotoMovement();
-      this.notifyUser('Se ha completado la operación','');
-     }, error => {
-      console.log(error);
-    });
-  }
-  */
+
+  //saveStatus(estado)
+  //{
+  //  this.movementsCtrl.saveEstado(this.movement, estado).subscribe(data => {
+  //    //console.log(data);
+  //    this.send();
+  //    this.gotoMovement();
+  //    this.notifyUser('Se ha completado la operación','');
+  //   }, error => {
+  //    console.log(error);
+  //  });
+  //}
+
 
   
   async saveStatus(estado) 
@@ -78,18 +79,18 @@ export class MovementFilePage implements OnInit {
       this.movementsCtrl.saveEstado(this.movement, estado).subscribe(
         success => 
         {
-          this.notifyUser('Se ha completado la operación','');
-          this.gotoMovement();
-          load.dismiss();
+          // disabling feature // this.notifyUser('Se ha completado la operación','');
+          // disabling feature // this.gotoMovement();
+          // disabling feature // load.dismiss();
         },
         error => 
         {
-          load.dismiss();
-          this.notifyUser('Se ha generado un error en la operación','');
+          // disabling feature // load.dismiss();
+          // disabling feature // this.notifyUser('Se ha generado un error en la operación','');
         }
       );
       load.onDidDismiss().then((dis) => {
-        console.log('Dissmissed afer 2000');
+        // disabling feature // console.log('Dissmissed afer 2000');
       });
     })
   }
@@ -108,17 +109,18 @@ export class MovementFilePage implements OnInit {
 
   getSrc(str: string) {
     //console.log('getSrc: ' + SERVER_URL.slice(0,-3) + "/storage/" + str);
-    return SERVER_URL.slice(0,-3) + "/storage/thumb_" + str;
+    // disabling feature // return SERVER_URL.slice(0,-3) + "/storage/thumb_" + str;
   }
 
   send() 
   {
     this.loadingCtrl.create({message:"Guardando cambios..."}).then(load => {
-      load.present();
-      this.movementsCtrl.saveMovement(this.movement).subscribe(
-        success => load.dismiss(),
-        error => load.dismiss()
-      );
+      // disabling feature // load.present();
+      // disabling feature // this.movementsCtrl.saveMovement(this.movement).subscribe(
+      // disabling feature //   success => load.dismiss(),
+      // disabling feature //   error => load.dismiss()
+      // disabling feature // );
     })
   }
 }
+*/

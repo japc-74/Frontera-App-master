@@ -1,7 +1,8 @@
+/*
 import { Component } from '@angular/core';
-import { MovementsService } from '../services/movements/movements.service';
+//import { MovementsService } from '../services/movements/movements.service';
 import { MenuController, PopoverController } from '@ionic/angular';
-import { MovementPopoverComponent } from '../popovers/movement-popover/movement-popover.component';
+//import { MovementPopoverComponent } from '../popovers/movement-popover/movement-popover.component';
 import * as moment from "moment";
 @Component({
   selector: 'app-tab3',
@@ -99,3 +100,4 @@ export class Tab3Page {
 
 
 }
+*/

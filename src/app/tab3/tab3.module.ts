@@ -1,3 +1,4 @@
+/*
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -19,3 +20,4 @@ import { PopoversModule } from '../popovers/popover.module';
   declarations: [Tab3Page]
 })
 export class Tab3PageModule {}
+*/

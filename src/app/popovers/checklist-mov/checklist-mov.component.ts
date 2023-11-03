@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController, NavParams, LoadingController } from '@ionic/angular';
 import { SERVER_URL } from '../../../environments/environment';
@@ -154,3 +155,4 @@ export class ChecklistMovComponent implements OnInit {
 
 }
 
+*/

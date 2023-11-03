@@ -470,7 +470,7 @@ public saveToken(token):Observable<any>
     expedition.image = image;
     //console.log("SAVING STATUS 2: ", estad);
     return new Observable<any>((observer) => {
-      this.post("automovements/saveImage?image=1" , {data:expedition}).subscribe((success:any) => {
+      this.post("autoexpeditions/saveImage?image=1" , {data:expedition}).subscribe((success:any) => {
         if(success.changed)
         {
           expedition.image = image;

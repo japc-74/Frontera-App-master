@@ -4,20 +4,20 @@ import { IonicModule } from '@ionic/angular';
 import { AddFuelComponent } from './add-fuel/add-fuel.component';
 import { FormsModule } from '@angular/forms';
 import { ChecklistStateComponent } from './checklist-state/checklist-state.component';
-import { ChecklistMovComponent } from './checklist-mov/checklist-mov.component';
+//import { ChecklistMovComponent } from './checklist-mov/checklist-mov.component';
 import { ImagesExpComponent } from './images-exp/images-exp.component';
 import { ExpeditionPopoverComponent } from './expedition-popover/expedition-popover.component';
 import { RouterModule } from '@angular/router';
-import { MovementPopoverComponent } from './movement-popover/movement-popover.component';
+//import { MovementPopoverComponent } from './movement-popover/movement-popover.component';
 
 @NgModule({
-  entryComponents:[AddFuelComponent, ChecklistStateComponent, ChecklistMovComponent, ExpeditionPopoverComponent, MovementPopoverComponent, ImagesExpComponent],
+  entryComponents:[AddFuelComponent, ChecklistStateComponent, ExpeditionPopoverComponent, ImagesExpComponent],
   imports: [
     CommonModule,
     IonicModule,
     RouterModule,
     FormsModule,    
   ],
-  declarations: [AddFuelComponent, ChecklistStateComponent, ChecklistMovComponent, ExpeditionPopoverComponent, MovementPopoverComponent, ImagesExpComponent]
+  declarations: [AddFuelComponent, ChecklistStateComponent, ExpeditionPopoverComponent, ImagesExpComponent]
 })
 export class PopoversModule {}

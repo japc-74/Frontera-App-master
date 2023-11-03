@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Frontera</string>
-    <string name="title_activity_main">Frontera</string>
-    <string name="package_name">com.frontier.frontera</string>
-    <string name="fileprovider_authority">com.frontier.frontera.fileprovider</string>
-    <string name="custom_url_scheme">com.frontier.frontera</string>
+    <string name="app_name">AppFrontera</string>
+    <string name="title_activity_main">AppFrontera</string>
+    <string name="package_name">app.appfrontera.cl</string>
+    <string name="fileprovider_authority">app.appfrontera.cl.fileprovider</string>
+    <string name="custom_url_scheme">app.appfrontera.cl</string>
 </resources>

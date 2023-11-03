@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovementsService } from '../services/movements/movements.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,15 +40,15 @@ export class MovementDocumentationPage implements OnInit {
        private readonly toastCtrl: ToastController,
        public alertController: AlertController,
        private modalCtrl: ModalController) { 
-    this.movement = this.movementsCtrl.getById(this.route.snapshot.paramMap.get('id'));
+    // disabling feature // this.movement = this.movementsCtrl.getById(this.route.snapshot.paramMap.get('id'));
     //console.log("MOVEMENt FILE OF:", this.movement);
-    this.disableDestination = !(this.movement.particularDestinationName == null || this.movement.particularDestinationName == "");
-    this.doc = this.movement;
+    // disabling feature // this.disableDestination = !(this.movement.particularDestinationName == null || this.movement.particularDestinationName == "");
+    // disabling feature // this.doc = this.movement;
   }
 
   get tabDoc() 
   {
-    return this.movement.documentation;
+    // disabling feature // return this.movement.documentation;
   }
 
   ngOnInit() {
@@ -61,15 +62,15 @@ export class MovementDocumentationPage implements OnInit {
   }
 
   gotoExpedition() {
-    this.router.navigate(['/expedicion-master/id']);
+    // disabling feature // this.router.navigate(['/expedicion-master/id']);
   }
 
   gotoMovement() {
-    this.router.navigate(['/movement-file/'+this.route.snapshot.paramMap.get('id')]);
+    // disabling feature // this.router.navigate(['/movement-file/'+this.route.snapshot.paramMap.get('id')]);
   }
 
   gotoMovementDoc() {
-    this.router.navigate(['/movement-documentation/'+this.route.snapshot.paramMap.get('id')]);
+    // disabling feature // this.router.navigate(['/movement-documentation/'+this.route.snapshot.paramMap.get('id')]);
   }
 
   searchPatente()  
@@ -225,3 +226,4 @@ export class MovementDocumentationPage implements OnInit {
   }
 
 }
+*/

@@ -27,10 +27,12 @@ export class ExpedicionMasterPage implements OnInit {
     this.expedition = this.expeditionCtrl.getById(this.route.snapshot.paramMap.get('id'));
     /** console.log("EXPEDITION FILE OF:", this.expedition); **/
     this.tab = this.returning ? "in" : "out";
+    //this.tab = this.returning ? 1 : 0; //ojo aqui
+
     //this.tabDoc = this.returning ? "in" : "out";
     this.tab = this.ret ? "in" : "out";
-    this.isCharged = this.tabDoc.status.id > 3;
-    this.isDelivered = this.tabDoc.status.id > 7;
+    this.isCharged = this.tabDoc.status.id > 2;
+    this.isDelivered = this.tabDoc.status.id > 9;
   }
 
   ngOnInit() {}
@@ -55,7 +57,7 @@ export class ExpedicionMasterPage implements OnInit {
 
   charged()
   {
-    if(this.tabDoc.status.id > 4 && this.tabDoc.status.id < 9 || this.tabDoc.status.id > 14 && this.tabDoc.status.id < 19) return;
+    if(this.tabDoc.status.id > 2 && this.tabDoc.status.id <= 9 || this.tabDoc.status.id > 12 && this.tabDoc.status.id <= 19) return;
     /** console.log("CHARGED ID:", this.tabDoc.status.id); **/
     this.isCharged = true;
     this.save();
@@ -63,7 +65,7 @@ export class ExpedicionMasterPage implements OnInit {
 
   delivered()
   {
-    if(this.tabDoc.status.id != 7) return;
+    if(this.tabDoc.status.id == 9) return;
     this.isDelivered = true;
     this.save();
   }
@@ -71,6 +73,7 @@ export class ExpedicionMasterPage implements OnInit {
   get returning()
   {
     //return this.expedition.outDocumentation.status.id >= 12;
+    if(this.tabDoc.status.id == 9 || this.tabDoc.status.id >= 12)
     return this.expedition.ret == true;
   }
 

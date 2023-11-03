@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExpeditionsService } from '../expeditions/expeditions.service';
-import { MovementsService } from '../movements/movements.service';
+//import { MovementsService } from '../movements/movements.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,20 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class FronteraService {
 
-  constructor(public expeditionCtrl: ExpeditionsService, public movementsCtrl: MovementsService) { }
+  constructor(public expeditionCtrl: ExpeditionsService) { }
 
   update(): Observable<any>
   {
     return new Observable<any>((observer:any) => {
       this.expeditionCtrl.update().subscribe(
         (expeditionResponse) => {
-          this.movementsCtrl.update().subscribe(
-            (movementsResponse) => {              
-              observer.next();
-            }, (movementsResponseError) => {
-              observer.error("Error al obtener los movimientos");
-            });
-        }, (expeditionResponseError) => {
+          observer.next();
+
+        },
+        (expeditionResponseError) => {
           observer.error("Error al obtener las expediciones");
         });
     });

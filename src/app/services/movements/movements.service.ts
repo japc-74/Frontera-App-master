@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -20,17 +21,17 @@ export class MovementsService extends AuthApiService {
 
   getById(id)
   {
-    return this.allMovements.find(e => e.id == id);
+    // disabling feature // return this.allMovements.find(e => e.id == id);
   }
 
   get allStatus() 
   {
-    return this.movements.estados;
+    // disabling feature // return this.movements.estados;
   }
 
   get allMovements() 
   {
-    return this.movements.movimientos.todas;
+    // disabling feature // return this.movements.movimientos.todas;
   }
 
   update() 
@@ -96,18 +97,18 @@ export class MovementsService extends AuthApiService {
           if(savedExp == null) {
             this.movements.movimientos.todas.push(mov);
           }
-          else 
+          else
           {
             if(moment(savedExp.updated).isBefore(mov.updated, 'second'))
             {
               //console.log("UPDATING EXPEDITION " + savedExp.id, savedExp, mov)
               this.updateById(mov.id, mov);
             }
-          }         
+          }
         }
         this.save().then(() => observer.next(response));
       }, error => observer.error(error));
-    });    
+    });
   }
 
   public updateById(id, mov)
@@ -221,3 +222,4 @@ export class MovementsService extends AuthApiService {
   }
 
 }
+*/

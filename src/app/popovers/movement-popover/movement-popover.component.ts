@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, NavParams } from '@ionic/angular';
 
@@ -24,3 +25,4 @@ export class MovementPopoverComponent implements OnInit {
   ngOnInit() {}
 
 }
+*/
