@@ -81,7 +81,7 @@ export class ExpedicionMasterPage implements OnInit {
   {
     return this.isvalidDoc(this.tabDoc);
   }
-  
+
 
   isvalidDoc(doc)
   {
